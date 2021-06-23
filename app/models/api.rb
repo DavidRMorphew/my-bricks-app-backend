@@ -1,12 +1,12 @@
 class Api < ApplicationRecord
     @@base_url = "https://rebrickable.com/api/v3/lego"
 
-    def self.find_or_create_theme_by_theme_num(theme_id)
-        theme = (Theme.find_by(theme_number: theme_id) || self.fetch_theme_by_theme_num(theme_id))
+    def self.find_or_create_theme_by_theme_num(theme_num)
+        theme = (Theme.find_by(theme_number: theme_num) || self.fetch_theme_by_theme_num(theme_num))
     end
 
-    def self.fetch_theme_by_theme_num(theme_id)
-        url = "#{@@base_url}/themes/#{theme_id}/?key=#{ENV["LEGO_API_KEY"]}"
+    def self.fetch_theme_by_theme_num(theme_num)
+        url = "#{@@base_url}/themes/#{theme_num}/?key=#{ENV["LEGO_API_KEY"]}"
         uri = URI(url)
 
         resp = Net::HTTP.get(uri)
@@ -32,5 +32,16 @@ class Api < ApplicationRecord
         end
     end
 
+    def self.find_or_create_part_category_by_num(part_category_num)
+        part_category = (PartCategory.find_by(category_number: part_category_num) || self.fetch_part_category_by_num(part_category_num))
+    end
 
+    def self.fetch_part_category_by_num(part_category_num)
+        url = "#{@@base_url}/part_categories/#{part_category_num}/?key=#{ENV["LEGO_API_KEY"]}"
+        uri = URI(url)
+
+        resp = Net::HTTP.get(uri)
+        data = JSON.parse(resp)
+        part_category = PartCategory.create(category_number: data["id"], name: data["name"])
+    end
 end
