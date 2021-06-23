@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_183206) do
+ActiveRecord::Schema.define(version: 2021_06_23_183832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,24 @@ ActiveRecord::Schema.define(version: 2021_06_23_183206) do
     t.boolean "owned"
     t.boolean "potential_build"
     t.integer "total_bricks"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "part_categories", force: :cascade do |t|
+    t.string "category_number"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "parts", force: :cascade do |t|
+    t.integer "part_category_id"
+    t.string "part_number"
+    t.string "name"
+    t.string "color"
+    t.string "image_url"
+    t.boolean "for_match"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
