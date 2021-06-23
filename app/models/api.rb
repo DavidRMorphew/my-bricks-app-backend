@@ -45,8 +45,8 @@ class Api < ApplicationRecord
         part_category = PartCategory.create(category_number: data["id"], name: data["name"])
     end
 
-    def self.find_set_with_parts_or_create(set_num, lego_set = nil) # not sure this optional argument is needed
-        lego_set ||= self.find_or_create_set_by_set_num(set_num)
+    def self.find_set_with_parts_or_create(set_num, theme = nil) # not sure this optional argument is needed
+        lego_set = self.find_or_create_set_by_set_num(set_num, theme = nil)
         if lego_set.parts.empty?
             self.fetch_set_and_parts_of_set(lego_set)
         else
@@ -83,6 +83,25 @@ class Api < ApplicationRecord
             set_part_spec = lego_set.set_part_specs.where(part: set_part).first
             if !set_part_spec.part_quantity || (part["quantity"] > set_part_spec.part_quantity)
                 set_part_spec.update(part_quantity: part["quantity"])
+            end
+        end
+    end
+
+    def self.fetch_sets_by_theme_num(theme_num)
+        url = "#{@@base_url}/sets/?theme_id=#{theme_num}"
+        uri = URI(url)
+        theme = self.find_or_create_theme_by_theme_num(theme_num)
+
+        Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
+            request = Net::HTTP::Get.new uri
+            request["Authorization"] = "key #{ENV["LEGO_API_KEY"]}"
+
+            response = http.request(request).body
+            data = JSON.parse(response)
+           
+            sets = data["results"]
+            sets.each do |set|
+                self.find_set_with_parts_or_create(set["set_num"], theme)
             end
         end
     end
