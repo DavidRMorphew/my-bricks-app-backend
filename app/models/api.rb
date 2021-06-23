@@ -1,11 +1,11 @@
 class Api < ApplicationRecord
     @@base_url = "https://rebrickable.com/api/v3/lego"
 
-    def self.find_or_create_theme_by_id(theme_id)
-        theme = (Theme.find_by(theme_number: theme_id) || self.fetch_theme_by_id(theme_id))
+    def self.find_or_create_theme_by_theme_num(theme_id)
+        theme = (Theme.find_by(theme_number: theme_id) || self.fetch_theme_by_theme_num(theme_id))
     end
-    
-    def self.fetch_theme_by_id(theme_id)
+
+    def self.fetch_theme_by_theme_num(theme_id)
         url = "#{@@base_url}/themes/#{theme_id}/?key=#{ENV["LEGO_API_KEY"]}"
         uri = URI(url)
 
