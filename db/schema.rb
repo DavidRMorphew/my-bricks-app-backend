@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_183832) do
+ActiveRecord::Schema.define(version: 2021_06_23_184329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(version: 2021_06_23_183832) do
     t.string "color"
     t.string "image_url"
     t.boolean "for_match"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "set_part_specs", force: :cascade do |t|
+    t.integer "lego_set_id"
+    t.integer "part_id"
+    t.integer "part_quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

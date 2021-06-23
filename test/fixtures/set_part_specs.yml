@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lego_set_id: 1
+  part_id: 1
+  part_quantity: 1
+
+two:
+  lego_set_id: 1
+  part_id: 1
+  part_quantity: 1
