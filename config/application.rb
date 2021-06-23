@@ -15,6 +15,7 @@ require "action_cable/engine"
 # require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
+require 'net/http'
 require 'dotenv'
 require 'pry'
 
