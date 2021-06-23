@@ -44,4 +44,41 @@ class Api < ApplicationRecord
         data = JSON.parse(resp)
         part_category = PartCategory.create(category_number: data["id"], name: data["name"])
     end
+
+    def self.fetch_set_and_parts_of_set(set_num, lego_set = nil)
+        lego_set ||= self.find_or_create_set_by_set_num(set_num)
+
+        url = "#{@@base_url}/sets/#{set_num}/parts/?key=#{ENV["LEGO_API_KEY"]}&page_size=1000"
+        uri = URI(url)
+        
+
+        resp = Net::HTTP.get(uri)
+        data = JSON.parse(resp)
+        parts = data["results"]
+
+        parts.each do |part|
+            p = part["part"]
+            part_category = self.find_or_create_part_category_by_num(p["part_cat_id"])
+
+            not_for_match_category_numbers = [13, 17, 27, 28, 38, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65]
+        
+            for_match_value = (not_for_match_category_numbers.include?(part_category.category_number.to_i)) ? false : true
+
+            if set_part = Part.find_by(part_number: p["part_num"], name: p["name"], color: part["color"]["name"])
+                binding.pry
+                if !lego_set.parts.include?(set_part)
+                    binding.pry
+                    lego_set.parts.push(set_part)
+                else
+                    set_part
+                end
+            else
+                set_part = lego_set.parts.create(part_number: p["part_num"], name: p["name"], color: part["color"]["name"], part_category: part_category, for_match: for_match_value, image_url: p["part_img_url"])
+            end
+            set_part_spec = lego_set.set_part_specs.where(part: set_part).first
+            if !set_part_spec.part_quantity || (part["quantity"] > set_part_spec.part_quantity)
+                set_part_spec.update(part_quantity: part["quantity"])
+            end
+        end
+    end
 end
