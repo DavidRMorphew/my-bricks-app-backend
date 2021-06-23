@@ -45,13 +45,20 @@ class Api < ApplicationRecord
         part_category = PartCategory.create(category_number: data["id"], name: data["name"])
     end
 
-    def self.fetch_set_and_parts_of_set(set_num, lego_set = nil)
+    def self.find_set_with_parts_or_create(set_num, lego_set = nil) # not sure this optional argument is needed
         lego_set ||= self.find_or_create_set_by_set_num(set_num)
+        if lego_set.parts.empty?
+            self.fetch_set_and_parts_of_set(lego_set)
+        else
+            lego_set
+        end
+    end
 
+    def self.fetch_set_and_parts_of_set(lego_set)
+        set_num = lego_set.set_number
         url = "#{@@base_url}/sets/#{set_num}/parts/?key=#{ENV["LEGO_API_KEY"]}&page_size=1000"
         uri = URI(url)
         
-
         resp = Net::HTTP.get(uri)
         data = JSON.parse(resp)
         parts = data["results"]
@@ -65,12 +72,10 @@ class Api < ApplicationRecord
             for_match_value = (not_for_match_category_numbers.include?(part_category.category_number.to_i)) ? false : true
 
             if set_part = Part.find_by(part_number: p["part_num"], name: p["name"], color: part["color"]["name"])
-                binding.pry
                 if !lego_set.parts.include?(set_part)
-                    binding.pry
                     lego_set.parts.push(set_part)
-                else
-                    set_part
+                # else
+                #     set_part
                 end
             else
                 set_part = lego_set.parts.create(part_number: p["part_num"], name: p["name"], color: part["color"]["name"], part_category: part_category, for_match: for_match_value, image_url: p["part_img_url"])
