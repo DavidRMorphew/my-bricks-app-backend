@@ -6,6 +6,7 @@ class Api < ApplicationRecord
     end
 
     def self.fetch_theme_by_theme_num(theme_num)
+        sleep(1) # To avoid throttling by Api site
         url = "#{@@base_url}/themes/#{theme_num}/?key=#{ENV["LEGO_API_KEY"]}"
         uri = URI(url)
 
@@ -20,6 +21,7 @@ class Api < ApplicationRecord
     end
     
     def self.fetch_set_by_set_num(set_num, theme = nil) # optional theme argument
+        sleep(1) # To avoid throttling by Api site
         url = "#{@@base_url}/sets/#{set_num}/?key=#{ENV["LEGO_API_KEY"]}"
         uri = URI(url)
 
@@ -37,6 +39,7 @@ class Api < ApplicationRecord
     end
 
     def self.fetch_part_category_by_num(part_category_num)
+        sleep(1) # To avoid throttling by Api site
         url = "#{@@base_url}/part_categories/#{part_category_num}/?key=#{ENV["LEGO_API_KEY"]}"
         uri = URI(url)
 
@@ -48,6 +51,7 @@ class Api < ApplicationRecord
     def self.find_set_with_parts_or_create(set_num, theme = nil) # not sure this optional argument is needed
         lego_set = self.find_or_create_set_by_set_num(set_num, theme = nil)
         if lego_set.parts.empty?
+            sleep(1) # To avoid throttling by Api site
             self.fetch_set_and_parts_of_set(lego_set)
         else
             lego_set
