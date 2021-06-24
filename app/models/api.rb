@@ -30,7 +30,7 @@ class Api < ApplicationRecord
         data = JSON.parse(resp)
         if !data.empty?
             theme ||= self.find_or_create_theme_by_theme_num(data["theme_id"])
-            lego_set = theme.lego_sets.create(set_number: data["set_num"], year: data["year"], image_url: data["set_img_url"], name: data["name"], instructions_url: "https://rebrickable.com/instructions/#{set_num}", total_bricks: data["num_parts"])
+            lego_set = theme.lego_sets.create(set_number: data["set_num"], year: data["year"], image_url: data["set_img_url"], name: data["name"], instructions_url: "https://rebrickable.com/instructions/#{set_num}", total_bricks: data["num_parts"], owned: false, potential_build: false)
         end
     end
 
