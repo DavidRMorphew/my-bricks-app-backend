@@ -14,4 +14,8 @@ class LegoSet < ApplicationRecord
     def match_parts_of_set
         self.parts.where(for_match: true)
     end
+
+    def part_quantity_in_set_by_part(part)
+        self.set_part_specs.find_by(part: part).part_quantity
+    end
 end
