@@ -89,4 +89,15 @@ class LegoSet < ApplicationRecord
             end
         end
     end
+
+    def self.potential_builds_regardless_of_color
+        owned_parts_quantity_ary = self.array_of_parts_and_quantity_objects_regardless_of_color_owned
+        filtered_sets_by_parts = self.potential_builds_regardless_of_color_filtered_by_part_types(owned_parts_quantity_ary)
+
+        filtered_sets_by_parts.select do |set|
+            set.array_parts_quantity_regardless_of_color.all? do |part_obj|
+                part_obj[:part_quantity] <= owned_parts_quantity_ary.detect{|owned_part| owned_part[:part_number] == part_obj[:part_number]}[:part_quantity]
+            end
+        end
+    end
 end
