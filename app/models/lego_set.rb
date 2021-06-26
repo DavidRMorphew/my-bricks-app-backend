@@ -31,6 +31,18 @@ class LegoSet < ApplicationRecord
         strict_color_match_ary
     end
 
+    def array_parts_quantity_regardless_of_color(match_ary = [])
+        self.match_parts_of_set.each do |match_part|
+            if prev_entry = match_ary.detect {|owned_part_quantity_obj| owned_part_quantity_obj[:part_number] == match_part.part_number}
+                prev_entry[:part_quantity] += self.part_quantity_in_set_by_part(match_part)
+            else
+                owned_part_quantity_obj = {part_number: match_part.part_number, part_quantity: self.part_quantity_in_set_by_part(match_part)}
+                match_ary.push(owned_part_quantity_obj)
+            end
+        end
+        match_ary
+    end
+
     def self.array_of_parts_and_quantity_objects_by_strict_color_owned
         strict_color_match_ary = []
         self.owned_sets.each do |set|
