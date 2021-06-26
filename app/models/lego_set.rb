@@ -6,4 +6,8 @@ class LegoSet < ApplicationRecord
     def theme_name
         self.theme.name
     end
+
+    def self.owned_sets
+        self.all.where(owned: true)
+    end
 end
