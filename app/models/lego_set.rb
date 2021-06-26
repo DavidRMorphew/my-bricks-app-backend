@@ -30,4 +30,12 @@ class LegoSet < ApplicationRecord
         end
         strict_color_match_ary
     end
+
+    def self.array_of_parts_and_quantity_objects_by_strict_color_owned
+        strict_color_match_ary = []
+        self.owned_sets.each do |set|
+            set.array_of_parts_and_quantity_objects_by_strict_color_match(strict_color_match_ary)
+        end
+        strict_color_match_ary
+    end
 end
