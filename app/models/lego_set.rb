@@ -10,4 +10,8 @@ class LegoSet < ApplicationRecord
     def self.owned_sets
         self.all.where(owned: true)
     end
+
+    def match_parts_of_set
+        self.parts.where(for_match: true)
+    end
 end
