@@ -12,7 +12,8 @@ class LegoSetsController < ApplicationController
 
     def update
         lego_set = LegoSet.find_by(id: params[:id])
-        if lego_set.update(owned: true)
+        owned_attribute_state = lego_set.owned
+        if lego_set.update(owned: !owned_attribute_state)
             render json: LegoSetSerializer.new(lego_set)
         end
     end
