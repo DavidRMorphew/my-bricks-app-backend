@@ -38,4 +38,14 @@ class LegoSet < ApplicationRecord
         end
         strict_color_match_ary
     end
+
+    def self.potential_builds_strict_color_filtered_by_part_types(owned_parts_quantity_ary = [])
+        if owned_parts_quantity_ary.empty?
+            owned_parts_quantity_ary = self.array_of_parts_and_quantity_objects_by_strict_color_owned
+        end
+        owned_parts_filter_ary = owned_parts_quantity_ary.map {|part_obj| part_obj[:part]}
+        sets_parts_match = self.select do |set|
+            !set.owned && !set.match_parts_of_set.empty? && (set.match_parts_of_set - owned_parts_filter_ary).empty?
+        end
+    end
 end
