@@ -9,6 +9,11 @@ class LegoSetsController < ApplicationController
         lego_sets = LegoSet.where(owned: true)
         render json: LegoSetSerializer.new(lego_sets)
     end
+    
+    def potential_builds
+        potential_build_lego_sets = LegoSet.potential_builds_regardless_of_color
+        render json: LegoSetSerializer.new(potential_build_lego_sets)
+    end
 
     def update
         lego_set = LegoSet.find_by(id: params[:id])
@@ -17,4 +22,5 @@ class LegoSetsController < ApplicationController
             render json: LegoSetSerializer.new(lego_set)
         end
     end
+
 end
