@@ -11,7 +11,12 @@ class LegoSetsController < ApplicationController
     end
     
     def potential_builds
-        potential_build_lego_sets = LegoSet.potential_builds_regardless_of_color
+        strictParam = params[:strictParam]
+        if strictParam == "notStrict"
+            potential_build_lego_sets = LegoSet.potential_builds_regardless_of_color
+        elsif strictParam == "strict"
+            potential_build_lego_sets = LegoSet.potential_builds_strict_color_and_quantity
+        end
         render json: LegoSetSerializer.new(potential_build_lego_sets)
     end
 
