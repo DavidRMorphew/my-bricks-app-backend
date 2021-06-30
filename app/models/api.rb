@@ -109,4 +109,17 @@ class Api < ApplicationRecord
             end
         end
     end
+
+    def self.fetch_all_themes
+        url = "#{@@base_url}/themes/?key=#{ENV["LEGO_API_KEY"]}&page_size=1000"
+        uri = URI(url)
+
+        resp = Net::HTTP.get(uri)
+
+        data = JSON.parse(resp)
+        themes = data["results"]
+        themes.each do |theme|
+            Theme.find_or_create_by(name: theme["name"], theme_number: theme["id"])
+        end
+    end
 end
