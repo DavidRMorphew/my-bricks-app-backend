@@ -78,8 +78,6 @@ class Api < ApplicationRecord
             if set_part = Part.find_by(part_number: p["part_num"], name: p["name"], color: part["color"]["name"])
                 if !lego_set.parts.include?(set_part)
                     lego_set.parts.push(set_part)
-                # else
-                #     set_part
                 end
             else
                 set_part = lego_set.parts.create(part_number: p["part_num"], name: p["name"], color: part["color"]["name"], part_category: part_category, for_match: for_match_value, image_url: p["part_img_url"])

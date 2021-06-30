@@ -111,10 +111,5 @@ class LegoSet < ApplicationRecord
             end
         end
         results
-        # results = filtered_sets_by_parts.select do |set|
-        #     set.array_parts_quantity_regardless_of_color.all? do |part_obj|
-        #         part_obj[:part_quantity] <= owned_parts_quantity_ary.detect{|owned_part| owned_part[:part_number] == part_obj[:part_number]}[:part_quantity]
-        #     end
-        # end
     end
 end
