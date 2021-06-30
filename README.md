@@ -20,6 +20,8 @@ The search feature (found in this [file](https://github.com/DavidRMorphew/my-bri
 
 ## Installation
 
+First, fork this API.
+
 To install the program, open your terminal and run the following command:
 ```
 git clone git@github.com:DavidRMorphew/my-bricks-app-backend.git
