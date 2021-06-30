@@ -26,7 +26,8 @@ classic_town_nums = [68, 69, 70, 71, 72, 73, 74, 76, 77, 78, 79, 80, 82, 83, 85]
     # end
 
 # For All themes and sets, uncomment the following:
-    all_themes = Api.
-    all_themes.each do |theme_num|
-        Api.fetch_sets_by_theme_num(theme_num)
-    end
+    # Api.fetch_all_themes
+    # all_theme_nums = Theme.all.map{|theme| theme.theme_number}
+    # all_theme_nums.each do |theme_num|
+    #     Api.fetch_sets_by_theme_num(theme_num)
+    # end

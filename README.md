@@ -41,9 +41,34 @@ Then:
 rails s -p 3001
 ```
 
+## Migrations
+
+Run:
+```
+rails db:create
+rails db:migrate
+```
+Now the database is ready.
+
 ## Seed Data
 
-The current seed file can used to harvest a large number of Lego sets
+The current seed file can be used to harvest a large number of Lego sets from some selected theme types or ALL THEMES, ALL SETS, AND ALL PARTS using the last option. Uncomment the options you would like to use. 
+
+Note that it may take time to seed the database. I have implement the sleep method in the Api calls to avoid throttling of fetch requests by the Rebrickable Api. If you encounter issues, increase the sleep count throughout, but note that it will require a longer period to fetch the data you want.
+
+Run: 
+```
+rails db:seed
+```
+Now you can open the frontend of the App and make use of it.
+
+## Contributing
+
+Pull requests are welcome. If you want to make major changes, please open an issue first to discuss the proposed change.
+
+Please feel free to add and update tests where appropriate.
+
+This project is designed with collaboration in mind, and contributors are expected to adhere to the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.
 
 ## License
 The app is open source under the terms of the [MIT License](https://github.com/DavidRMorphew/my-bricks-app-backend/blob/main/LICENSE.txt)
