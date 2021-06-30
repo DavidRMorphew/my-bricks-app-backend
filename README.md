@@ -6,7 +6,7 @@ This Api is designed to fetch and persist Lego sets and their parts (as well as 
 
 You can use the seeds file to harvest Lego sets or set the app to download all of the Rebrickable Api (see the section on Seeding the Database).
 
-With the frontend of the App, you can select Lego sets that you own, and have this backend persist that data and also run searches for sets that you could build given all of the parts that you own. 
+With the frontend of the App, you can select Lego sets that you own and have this backend persist that data. You can also run searches for sets that you could build (`Potential Builds`) given all of the parts that you own. 
 
 You can select a broad search with color-substitutions or a strict search that only finds sets that have parts with the exact same colors you own.
 
