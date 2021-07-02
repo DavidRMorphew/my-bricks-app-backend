@@ -50,7 +50,7 @@ rails s -p 3001
 
 ## Seed Data
 
-The current seeds file can be used to harvest a large number of Lego sets from some selected theme types or ALL THEMES, ALL SETS, AND ALL PARTS using the last option. Uncomment the options you would like to use. For the [demo](https://youtu.be/Nf22hC3Ga9U) I used the first three sets of themes (castle, space, and classic town). 
+The current seeds file can be used to harvest a large number of Lego sets from some selected theme types or ALL THEMES, ALL SETS, AND ALL PARTS using the last option. Uncomment the options you would like to use. For the [demo](https://youtu.be/45j-xHOpQgM) I used the first three sets of themes (castle, space, and classic town). 
 
 Note that it may take time to seed the database. I have implement the sleep method in the Api calls to avoid throttling of fetch requests by the Rebrickable Api. If you encounter issues, increase the sleep count throughout, but note that it will require a longer period to fetch the data you want.
 
