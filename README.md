@@ -4,7 +4,7 @@
 ## Purpose and Usage
 This Api is designed to fetch and persist Lego sets and their parts from the [Rebrickable Api](https://rebrickable.com/api/v3/docs/) for use with the [My Bricks App Frontend](https://github.com/DavidRMorphew/my-bricks-app-frontend).
 
-You can use the seeds file to harvest Lego sets, or set the app to download all of the Rebrickable Api (see the section on Seeding the Database).
+You can use the seeds file to harvest Lego sets, or set the app to download all of the sets and parts from Rebrickable Api (see the section on Seeding the Database).
 
 With the frontend of the App, you can select Lego sets that you own and have this backend persist that data. You can also run searches for sets that you could build (`Potential Builds`) given all of the parts that you own. 
 
@@ -17,8 +17,6 @@ The search feature (found in this [file](https://github.com/DavidRMorphew/my-bri
 * (3) Checking each set in the database to see if you 
     - (a) own all of the parts needed to build it  
     - (b) own enough of each type of part to build it
-
-(If you change the sets that you own, you'll need to run a new search, since any change in the sets you own clears out the results for the search—to avoid presenting outdated data. Read more about it in the second example of my [blog](https://davidrmorphew.medium.com/using-switch-case-in-react-redux-to-make-state-change-dependencies-8ade636a4e39).)
 
 ## Installation
 
@@ -56,7 +54,7 @@ The current seeds file can be used to harvest a large number of Lego sets from s
 
 Note that it may take time to seed the database. I have implement the sleep method in the Api calls to avoid throttling of fetch requests by the Rebrickable Api. If you encounter issues, increase the sleep count throughout, but note that it will require a longer period to fetch the data you want.
 
-Run: 
+After selecing what you want in the Seeds file, run: 
 ```
 rails db:seed
 ```
@@ -68,7 +66,7 @@ Pull requests are welcome. If you want to make major changes, please open an iss
 
 Please feel free to add and update tests where appropriate.
 
-This project is designed with collaboration in mind, and contributors are expected to adhere to the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.
+Contributors are expected to adhere to the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.
 
 ## License
-The app is open source under the terms of the [MIT License](https://github.com/DavidRMorphew/my-bricks-app-backend/blob/main/LICENSE.txt)
+The app is open source under the terms of the [MIT License](https://github.com/DavidRMorphew/my-bricks-app-backend/blob/main/LICENSE.txt).
