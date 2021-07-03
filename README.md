@@ -18,6 +18,8 @@ The search feature (found in this [file](https://github.com/DavidRMorphew/my-bri
     - (a) own all of the parts needed to build it  
     - (b) own enough of each type of part to build it
 
+(If you change the sets that you own, you'll need to run a new search, since any change in the sets you own clears out the results for the search—to avoid presenting outdated data. Read more about it in the second example of my [blog](https://davidrmorphew.medium.com/using-switch-case-in-react-redux-to-make-state-change-dependencies-8ade636a4e39).)
+
 ## Installation
 
 First, fork this API.
