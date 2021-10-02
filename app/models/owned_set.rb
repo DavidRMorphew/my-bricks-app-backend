@@ -1,0 +1,2 @@
+class OwnedSet < ApplicationRecord
+end
