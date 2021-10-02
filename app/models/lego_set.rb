@@ -1,5 +1,7 @@
 class LegoSet < ApplicationRecord
     belongs_to :theme
+    has_many :owned_sets
+    has_many :users, through: :owned_sets
     has_many :set_part_specs, dependent: :destroy
     has_many :parts, through: :set_part_specs
 
