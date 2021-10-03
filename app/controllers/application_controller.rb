@@ -14,4 +14,9 @@ class ApplicationController < ActionController::API
           end
         end
     end
+
+    def user_id
+        decoded_token[0]['user_id'] if decoded_token
+    end
+
 end
