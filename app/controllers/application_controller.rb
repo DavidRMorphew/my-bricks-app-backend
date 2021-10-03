@@ -19,4 +19,9 @@ class ApplicationController < ActionController::API
         decoded_token[0]['user_id'] if decoded_token
     end
 
+    def current_user
+        if user_id
+            Current.user ||= User.find_by(id: user_id)
+        end
+    end
 end
