@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     def create
         @user = User.new(user_params)
         if @user.save
-            # register user with token
+            @token = encode_token(user_id: @user.id)
             render json: UserSerializer.new(@user), status: :created
         else
             render json: { error: 'failed to create user'}, status: :not_acceptable
