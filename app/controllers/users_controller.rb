@@ -5,6 +5,7 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         if @user.save
             # register user with token
+            render json: UserSerializer.new(@user)
         end
     end
 
