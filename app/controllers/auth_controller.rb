@@ -2,6 +2,7 @@ class AuthController < ApplicationController
   wrap_parameters :user, include: [:email, :password]
   
   def create
+    @user = User.find_by(login_params)
       binding.pry
   end
 
@@ -14,6 +15,6 @@ class AuthController < ApplicationController
   private
 
   def login_params
-      params.require(:user).permis(:email, :password)
+      params.require(:user).permit(:email, :password)
   end
 end
