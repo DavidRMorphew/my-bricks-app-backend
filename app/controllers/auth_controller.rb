@@ -3,10 +3,21 @@ class AuthController < ApplicationController
   
   def create
     @user = User.find_by(email: login_params[:email])
-      binding.pry
+    if @user && @user.authenticate(login_params[:password])
+      token = encode_token({user_id: @user.id})
+      render json: { user: UserSerializer.new(@user), jwt: token }, status: :accepted
+    else
+      render json: { message: "Email or Password Invalid" }, status: :unauthorized
+    end
   end
 
   def destroy
+    if current_user
+      current_user = nil
+      render json: { message: "Successfully Logged Out" }, status: :accepted
+    else
+        render json: { error: "Logout Failed" }, status: :not_acceptable
+    end
   end
 
   def logged_in
