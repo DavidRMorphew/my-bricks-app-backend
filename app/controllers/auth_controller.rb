@@ -2,7 +2,7 @@ class AuthController < ApplicationController
   wrap_parameters :user, include: [:email, :password]
   
   def create
-
+      binding.pry
   end
 
   def destroy
