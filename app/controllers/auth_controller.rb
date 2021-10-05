@@ -21,6 +21,11 @@ class AuthController < ApplicationController
   end
 
   def logged_in
+    if current_user
+      render json: UserSerializer.new(current_user)
+    else
+      render json: { error: "Login Required" }
+    end
   end
 
   private
