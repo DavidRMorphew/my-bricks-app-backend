@@ -26,8 +26,8 @@ pirate_themes_nums = [147, 148, 149, 151, 152, 153, 154, 215]
     # end
 
 # For All themes and sets, uncomment the following:
-    # Api.fetch_all_themes
-    # all_theme_nums = Theme.all.map{|theme| theme.theme_number}
-    # all_theme_nums.each do |theme_num|
-    #     Api.fetch_sets_by_theme_num(theme_num)
-    # end
+#     Api.fetch_all_themes
+#     all_theme_nums = Theme.all.map{|theme| theme.theme_number}
+#     all_theme_nums.each do |theme_num|
+#         Api.fetch_sets_by_theme_num(theme_num)
+#     end
