@@ -9,8 +9,13 @@ class LegoSet < ApplicationRecord
         self.theme.name
     end
 
-    def self.owned_sets
-        self.all.where(owned: true)
+    # def self.owned_sets
+    #     self.all.where(owned: true)
+    # end
+
+    # test this
+    def self.owned_by_user(user)
+        self.all.where(user: user)
     end
 
     def match_parts_of_set
@@ -44,7 +49,7 @@ class LegoSet < ApplicationRecord
         end
         match_ary
     end
-
+# Set up param for current_user
     def self.array_of_parts_and_quantity_objects_by_strict_color_owned
         strict_color_match_ary = []
         self.owned_sets.each do |set|
@@ -52,7 +57,7 @@ class LegoSet < ApplicationRecord
         end
         strict_color_match_ary
     end
-
+# Set up param for current_user
     def self.array_of_parts_and_quantity_objects_regardless_of_color_owned
         match_ary = [] 
         self.owned_sets.each do |set|
@@ -60,7 +65,7 @@ class LegoSet < ApplicationRecord
         end
         match_ary
     end
-
+# Set up param for current_user
     def self.potential_builds_strict_color_filtered_by_part_types(owned_parts_quantity_ary = [])
         if owned_parts_quantity_ary.empty?
             owned_parts_quantity_ary = self.array_of_parts_and_quantity_objects_by_strict_color_owned
@@ -70,7 +75,7 @@ class LegoSet < ApplicationRecord
             !set.owned && !set.match_parts_of_set.empty? && (set.match_parts_of_set - owned_parts_filter_ary).empty?
         end
     end
-
+# Set up param for current_user
     def self.potential_builds_regardless_of_color_filtered_by_part_types(owned_parts_quantity_ary = [])
         if owned_parts_quantity_ary.empty?
             owned_parts_quantity_ary = self.array_of_parts_and_quantity_objects_regardless_of_color_owned
@@ -80,7 +85,7 @@ class LegoSet < ApplicationRecord
             !set.owned && !set.match_parts_of_set.empty? && (set.match_parts_of_set.map {|part| part.part_number} - owned_parts_filter_ary).empty?
         end
     end
-
+# Set up param for current_user
     def self.potential_builds_strict_color_and_quantity
         self.update_all(potential_build_strict: false)
         owned_parts_quantity_ary = self.array_of_parts_and_quantity_objects_by_strict_color_owned
@@ -97,7 +102,7 @@ class LegoSet < ApplicationRecord
         end
         results
     end
-
+# Set up param for current_user
     def self.potential_builds_regardless_of_color
         self.update_all(potential_build: false)
         owned_parts_quantity_ary = self.array_of_parts_and_quantity_objects_regardless_of_color_owned

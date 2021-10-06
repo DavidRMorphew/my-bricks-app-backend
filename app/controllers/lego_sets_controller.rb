@@ -11,6 +11,7 @@ class LegoSetsController < ApplicationController
         render json: LegoSetSerializer.new(lego_sets)
     end
     
+    # pass current_user to potential build methods to grab current_user's sets
     def potential_builds
         strictParam = params[:strictParam]
         if strictParam == "notStrict"
@@ -23,15 +24,16 @@ class LegoSetsController < ApplicationController
 
     def update
         lego_set = LegoSet.find_by(id: params[:id])
-        # if owned_set = lego_set.owned_sets.where(user: current_user
-            #  owned_set.destroy
-        # else
-            #  lego_set.owned_sets.create(user: current_user)
-        # end
-        owned_attribute_state = lego_set.owned
-        if lego_set.update(owned: !owned_attribute_state)
-            render json: LegoSetSerializer.new(lego_set)
+        if owned_set = lego_set.owned_sets.where(user: current_user
+             owned_set.destroy
+        else
+             lego_set.owned_sets.create(user: current_user)
         end
+        binding.pry
+        # owned_attribute_state = lego_set.owned
+        # if lego_set.update(owned: !owned_attribute_state)
+            render json: LegoSetSerializer.new(lego_set)
+        # end
     end
 
 end
