@@ -6,7 +6,8 @@ class LegoSetsController < ApplicationController
     end
 
     def owned_sets
-        lego_sets = LegoSet.where(owned: true)
+        # lego_sets = LegoSet.where(owned: true)
+        lego_sets = current_user.lego_sets
         render json: LegoSetSerializer.new(lego_sets)
     end
     
@@ -22,6 +23,11 @@ class LegoSetsController < ApplicationController
 
     def update
         lego_set = LegoSet.find_by(id: params[:id])
+        # if owned_set = lego_set.owned_sets.where(user: current_user
+            #  owned_set.destroy
+        # else
+            #  lego_set.owned_sets.create(user: current_user)
+        # end
         owned_attribute_state = lego_set.owned
         if lego_set.update(owned: !owned_attribute_state)
             render json: LegoSetSerializer.new(lego_set)
