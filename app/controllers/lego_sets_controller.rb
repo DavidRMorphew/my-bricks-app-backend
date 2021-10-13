@@ -24,7 +24,7 @@ class LegoSetsController < ApplicationController
 # Redo this in owned_sets_controller
     def update
         lego_set = LegoSet.find_by(id: params[:id])
-        if owned_set = lego_set.owned_sets.where(user: current_user
+        if owned_set = lego_set.owned_sets.where(user: current_user)
              owned_set.destroy
         else
              lego_set.owned_sets.create(user: current_user)

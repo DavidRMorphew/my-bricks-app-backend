@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   resources :lego_sets, only: [:index, :update] do
     resources :set_part_specs, only: [:index]
     resources :parts, only: [:index]
-    resources :owned_sets, only: [:index, :create, :destroy]
   end
+  
+  resources :owned_sets, only: [:index, :create, :destroy]
 
 end
