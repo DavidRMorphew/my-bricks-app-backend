@@ -21,7 +21,7 @@ class LegoSetsController < ApplicationController
         end
         render json: LegoSetSerializer.new(potential_build_lego_sets)
     end
-
+# Redo this in owned_sets_controller
     def update
         lego_set = LegoSet.find_by(id: params[:id])
         if owned_set = lego_set.owned_sets.where(user: current_user
