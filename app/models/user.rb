@@ -1,6 +1,7 @@
 class User < ApplicationRecord
     has_secure_password
     validates :email, uniqueness: {case_sensitive: false}
+    validates :name, presence: true
     before_validation :downcase_email
     has_many :owned_sets
     has_many :lego_sets, through: :owned_sets
