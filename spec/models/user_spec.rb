@@ -93,4 +93,10 @@ RSpec.describe User, type: :model do
     expect(user.owned_sets.first).to eq(first_owned_set)
     expect(user.owned_sets.last).to eq(second_owned_set)
   end
+
+  it "has many lego_sets through owned_sets " do
+    user.lego_sets << [lunar_launch_lego_set, fuel_truck_lego_set]
+    expect(user.lego_sets.first).to eq(lunar_launch_lego_set)
+    expect(user.lego_sets.last).to eq(fuel_truck_lego_set)
+  end
 end
