@@ -14,5 +14,12 @@ class OwnedSetsController < ApplicationController
   end
 
   def destroy
+    owned_set = OwnedSet.find_by(id: params[:id])
+    if owned_set.user == current_user
+      owned_set.destroy
+      render json: { message: "Successfully Removed" }, status: :accepted
+    else
+      render json: { error: "Set Not Removed from Owned" }, status: :not_acceptable
+    end
   end
 end
